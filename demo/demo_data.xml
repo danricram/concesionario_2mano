@@ -1,0 +1,84 @@
+<odoo>
+    <record id="demo_cliente_juan" model="concesionario.cliente">
+        <field name="nombre">Juan Pérez</field>
+        <field name="correo_electronico">juan.perez@example.com</field>
+        <field name="telefono">+34 600 123 456</field>
+    </record>
+
+    <record id="demo_vehiculo_toyota" model="concesionario.vehiculo">
+        <field name="nombre">Toyota Corolla</field>
+        <field name="marca">Toyota</field>
+        <field name="modelo">Corolla</field>
+        <field name="año">2020</field>
+        <field name="kilometraje">15000</field>
+        <field name="precio">20000</field>
+        <field name="estado">disponible</field>
+        <field name="descripcion">Vehículo en excelente estado, único dueño.</field>
+    </record>
+
+    <record id="demo_venta_juan_toyota" model="concesionario.venta">
+        <field name="cliente_id" ref="demo_cliente_juan"/>
+        <field name="vehiculo_id" ref="demo_vehiculo_toyota"/>
+        <field name="fecha_venta">2025-01-01</field>
+    </record>
+
+    <record id="demo_vehiculo_ford" model="concesionario.vehiculo">
+        <field name="nombre">Ford Focus</field>
+        <field name="marca">Ford</field>
+        <field name="modelo">Focus</field>
+        <field name="año">2018</field>
+        <field name="kilometraje">45000</field>
+        <field name="precio">15000</field>
+        <field name="estado">disponible</field>
+        <field name="descripcion">Vehículo en buen estado, revisiones al día.</field>
+    </record>
+
+    <record id="demo_vehiculo_audi" model="concesionario.vehiculo">
+        <field name="nombre">Audi A3</field>
+        <field name="marca">Audi</field>
+        <field name="modelo">A3</field>
+        <field name="año">2021</field>
+        <field name="kilometraje">10000</field>
+        <field name="precio">30000</field>
+        <field name="estado">reservado</field>
+        <field name="descripcion">Reservado para cliente especial.</field>
+    </record>
+
+    <record id="demo_vehiculo_honda" model="concesionario.vehiculo">
+        <field name="nombre">Honda Civic</field>
+        <field name="marca">Honda</field>
+        <field name="modelo">Civic</field>
+        <field name="año">2015</field>
+        <field name="kilometraje">75000</field>
+        <field name="precio">12000</field>
+        <field name="estado">vendido</field>
+        <field name="descripcion">Vehículo vendido, excelente estado.</field>
+    </record>
+
+    <record id="demo_cliente_maria" model="concesionario.cliente">
+        <field name="nombre">María López</field>
+        <field name="correo_electronico">maria.lopez@example.com</field>
+        <field name="telefono">+34 700 456 789</field>
+        <field name="vehiculo_preferido" ref="demo_vehiculo_ford"/>
+    </record>
+
+    <record id="demo_cliente_carlos" model="concesionario.cliente">
+        <field name="nombre">Carlos Fernández</field>
+        <field name="correo_electronico">carlos.fernandez@example.com</field>
+        <field name="telefono">+34 600 789 123</field>
+    </record>
+
+    <record id="demo_venta_maria_ford" model="concesionario.venta">
+        <field name="cliente_id" ref="demo_cliente_maria"/>
+        <field name="vehiculo_id" ref="demo_vehiculo_ford"/>
+        <field name="fecha_venta">2025-01-15</field>
+        <field name="precio">15000</field>
+    </record>
+
+    <record id="demo_venta_carlos_honda" model="concesionario.venta">
+        <field name="cliente_id" ref="demo_cliente_carlos"/>
+        <field name="vehiculo_id" ref="demo_vehiculo_honda"/>
+        <field name="fecha_venta">2025-01-10</field>
+        <field name="precio">12000</field>
+    </record>
+</odoo>
