@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vehicle_user,access.vehicle.user,model_concesionario_vehicle,base.group_user,1,1,1,1
+access_customer_user,access.customer.user,model_concesionario_customer,base.group_user,1,1,1,1
+access_sale_user,access.sale.user,model_concesionario_sale,base.group_user,1,1,1,1

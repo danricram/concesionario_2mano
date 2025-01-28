@@ -9,9 +9,10 @@
     "depends": ["base", "sale", "stock"],  # Dependencias de Odoo
     "data": [
         "security/ir.model.access.csv",  # Permisos de acceso
-        "views/vehicle_views.xml",  # Vistas para los vehículos
-        "views/customer_views.xml",  # Vistas para clientes
-        "views/sale_views.xml",  # Vistas para ventas
+        "views/menu_view.xml",
+        "views/coche_view.xml",  # Vistas para los vehículos
+        "views/cliente_views.xml",  # Vistas para clientes
+        "views/ventas_views.xml",  # Vistas para ventas
         "data/initial_data.xml",  # Datos iniciales (opcional)
     ],
     "demo": ["demo/demo_data.xml"],  # Datos de demostración (opcional)

@@ -1,0 +1,199 @@
+<odoo>
+    <!-- Menú principal del concesionario -->
+    <menuitem id="menu_concesionario_app" name="Concesionario" sequence="10"/>
+
+    <!-- Acciones para los vehículos -->
+    <record id="action_concesionario_vehiculo" model="ir.actions.act_window">
+        <field name="name">Gestión de Vehículos</field>
+        <field name="res_model">concesionario.vehiculo</field>
+        <field name="view_mode">tree,form,search,kanban</field>
+    </record>
+
+    <!-- Acciones para los clientes -->
+    <record id="action_concesionario_cliente" model="ir.actions.act_window">
+        <field name="name">Gestión de Clientes</field>
+        <field name="res_model">concesionario.cliente</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
+    <!-- Acciones para las ventas -->
+    <record id="action_concesionario_venta" model="ir.actions.act_window">
+        <field name="name">Gestión de Ventas</field>
+        <field name="res_model">concesionario.venta</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Submenú de vehículos -->
+    <menuitem id="submenu_concesionario_vehiculo" name="Gestión de Vehículos" parent="menu_concesionario_app" sequence="20" action="action_concesionario_vehiculo"/>
+
+    <!-- Submenú de clientes -->
+    <menuitem id="submenu_concesionario_cliente" name="Gestión de Clientes" parent="menu_concesionario_app" sequence="30" action="action_concesionario_cliente"/>
+
+    <!-- Submenú de ventas -->
+    <menuitem id="submenu_concesionario_venta" name="Gestión de Ventas" parent="menu_concesionario_app" sequence="40" action="action_concesionario_venta"/>
+
+    <!-- Vista de formulario para vehículos -->
+    <record id="view_concesionario_vehiculo_form" model="ir.ui.view">
+        <field name="name">concesionario.vehiculo.form</field>
+        <field name="model">concesionario.vehiculo</field>
+        <field name="arch" type="xml">
+            <form string="Vehículo">
+                <sheet>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Nombre:</span>
+                        <field name="nombre"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Marca:</span>
+                        <field name="marca"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Modelo:</span>
+                        <field name="modelo"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Año:</span>
+                        <field name="año"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Kilometraje:</span>
+                        <field name="kilometraje"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Precio:</span>
+                        <field name="precio" widget="monetary"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Estado:</span>
+                        <field name="estado" widget="selection"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Descripción:</span>
+                        <field name="descripcion" widget="text"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Imagen:</span>
+                        <field name="imagen" widget="image"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de árbol para vehículos -->
+    <record id="view_concesionario_vehiculo_tree" model="ir.ui.view">
+        <field name="name">concesionario.vehiculo.tree</field>
+        <field name="model">concesionario.vehiculo</field>
+        <field name="arch" type="xml">
+            <tree string="Vehículos">
+                <field name="nombre"/>
+                <field name="marca"/>
+                <field name="modelo"/>
+                <field name="año"/>
+                <field name="kilometraje"/>
+                <field name="precio" widget="monetary"/>
+                <field name="estado"/>
+                <field name="imagen" widget="image"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda para vehículos -->
+    <record id="view_concesionario_vehiculo_search" model="ir.ui.view">
+        <field name="name">concesionario.vehiculo.search</field>
+        <field name="model">concesionario.vehiculo</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Vehículo">
+                <field name="nombre"/>
+                <field name="marca"/>
+                <field name="modelo"/>
+                <field name="año"/>
+                <field name="estado"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Vista de formulario para clientes -->
+    <record id="view_concesionario_cliente_form" model="ir.ui.view">
+        <field name="name">concesionario.cliente.form</field>
+        <field name="model">concesionario.cliente</field>
+        <field name="arch" type="xml">
+            <form string="Cliente">
+                <sheet>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Nombre:</span>
+                        <field name="nombre"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Correo Electrónico:</span>
+                        <field name="correo_electronico"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Teléfono:</span>
+                        <field name="telefono"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Vehículo Preferido:</span>
+                        <field name="vehiculo_preferido"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de árbol para clientes -->
+    <record id="view_concesionario_cliente_tree" model="ir.ui.view">
+        <field name="name">concesionario.cliente.tree</field>
+        <field name="model">concesionario.cliente</field>
+        <field name="arch" type="xml">
+            <tree string="Clientes">
+                <field name="nombre"/>
+                <field name="correo_electronico"/>
+                <field name="telefono"/>
+                <field name="vehiculo_preferido"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista de formulario para ventas -->
+    <record id="view_concesionario_venta_form" model="ir.ui.view">
+        <field name="name">concesionario.venta.form</field>
+        <field name="model">concesionario.venta</field>
+        <field name="arch" type="xml">
+            <form string="Venta">
+                <sheet>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Cliente:</span>
+                        <field name="cliente_id"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Vehículo:</span>
+                        <field name="vehiculo_id"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Fecha de Venta:</span>
+                        <field name="fecha_venta" widget="date"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Precio:</span>
+                        <field name="precio" widget="monetary"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista de árbol para ventas -->
+    <record id="view_concesionario_venta_tree" model="ir.ui.view">
+        <field name="name">concesionario.venta.tree</field>
+        <field name="model">concesionario.venta</field>
+        <field name="arch" type="xml">
+            <tree string="Ventas">
+                <field name="cliente_id"/>
+                <field name="vehiculo_id"/>
+                <field name="fecha_venta"/>
+                <field name="precio" widget="monetary"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

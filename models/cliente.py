@@ -1,10 +1,10 @@
 from odoo import models, fields
 
 class Cliente(models.Model):
-    _name = "concesionario.customer"
+    _name = "concesionario.cliente"
     _description = "Cliente"
 
     nombre = fields.Char(string="Nombre", required=True)
-    email = fields.Char(string="Correo Electrónico")
+    correo_electronico = fields.Char(string="Correo Electrónico")
     telefono = fields.Char(string="Teléfono")
-    coche_pref = fields.Many2one("concesionario.vehicle", string="Vehículo Preferido")
+    vehiculo_preferido = fields.Many2one("concesionario.vehiculo", string="Vehículo Preferido")
