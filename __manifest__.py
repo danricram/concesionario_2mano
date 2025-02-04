@@ -1,7 +1,7 @@
 {
-    "name": "Concesionario de Autos de Segunda Mano",
+    "name": "Concesionario",
     "version": "1.0.0",
-    "summary": "Gestión de vehículos, clientes y ventas para concesionarios de autos usados.",
+    "summary": "Gestión de vehículos, clientes y ventas para concesionarios.",
     "author": "Daniel Rico Ramírez",
     "website": "http://www.dadesapp.com",
     "license": "AGPL-3",

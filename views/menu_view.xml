@@ -40,8 +40,8 @@
             <form string="Vehículo">
                 <sheet>
                     <div style="display: flex; flex: 1;">
-                        <span style="font-weight: bold;">Nombre:</span>
-                        <field name="nombre"/>
+                        <span style="font-weight: bold;">Matrícula:</span>
+                        <field name="matricula"/>
                     </div>
                     <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Marca:</span>
@@ -50,6 +50,10 @@
                     <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Modelo:</span>
                         <field name="modelo"/>
+                    </div>
+                        <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Color:</span>
+                        <field name="color"/>
                     </div>
                     <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Año:</span>
@@ -60,12 +64,24 @@
                         <field name="kilometraje"/>
                     </div>
                     <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Potencia (CV):</span>
+                        <field name="potencia_cv"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Precio:</span>
                         <field name="precio" widget="monetary"/>
                     </div>
                     <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Estado:</span>
                         <field name="estado" widget="selection"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Tipo de Combustible:</span>
+                        <field name="tipo_combustible" widget="selection"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Transmisión:</span>
+                        <field name="transmision" widget="selection"/>
                     </div>
                     <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Descripción:</span>
@@ -86,13 +102,17 @@
         <field name="model">concesionario.vehiculo</field>
         <field name="arch" type="xml">
             <tree string="Vehículos">
-                <field name="nombre"/>
+                <field name="matricula"/>
                 <field name="marca"/>
                 <field name="modelo"/>
+                <field name="color"/>
                 <field name="año"/>
                 <field name="kilometraje"/>
+                <field name="potencia_cv"/>
                 <field name="precio" widget="monetary"/>
                 <field name="estado"/>
+                <field name="tipo_combustible"/>
+                <field name="transmision"/>
                 <field name="imagen" widget="image"/>
             </tree>
         </field>
@@ -104,11 +124,32 @@
         <field name="model">concesionario.vehiculo</field>
         <field name="arch" type="xml">
             <search string="Buscar Vehículo">
-                <field name="nombre"/>
+                <!-- Campos estándar de búsqueda -->
                 <field name="marca"/>
                 <field name="modelo"/>
                 <field name="año"/>
                 <field name="estado"/>
+                <field name="precio"/>
+
+                <!-- Filtros rápidos -->
+                <filter string="Disponible" name="filtro_disponible" domain="[('estado', '=', 'disponible')]"/>
+                <filter string="Reservado" name="filtro_reservado" domain="[('estado', '=', 'reservado')]"/>
+                <filter string="Vendido" name="filtro_vendido" domain="[('estado', '=', 'vendido')]"/>
+
+                <!-- Rango de año -->
+                <filter string="Año mayor 2020" name="filtro_año_reciente" domain="[('año', '&gt;=', 2020)]"/>
+                <filter string="Año menor a 2020" name="filtro_anio_antiguo" domain="[('año', '&lt;', 2020)]"/>
+
+                <!-- Rango de precio -->
+                <filter string="Menos de 10,000€" name="filtro_precio_bajo" domain="[('precio', '&lt;', 10000)]"/>
+                <filter string="10,000€ - 30,000€" name="filtro_precio_medio" domain="[('precio', '&gt;=', 10000), ('precio', '&lt;=', 30000)]"/>
+                <filter string="Más de 30,000€" name="filtro_precio_alto" domain="[('precio', '&gt;', 30000)]"/>
+
+                <!-- Agrupaciones -->
+                <group expand="0" string="Agrupar por">
+                    <filter string="Marca" name="group_by_marca" domain="[]" context="{'group_by': 'marca'}"/>
+                    <filter string="Estado" name="group_by_estado" domain="[]" context="{'group_by': 'estado'}"/>
+                </group>
             </search>
         </field>
     </record>
@@ -121,8 +162,16 @@
             <form string="Cliente">
                 <sheet>
                     <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">DNI:</span>
+                        <field name="dni"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Nombre:</span>
                         <field name="nombre"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Apellidos:</span>
+                        <field name="apellidos"/>
                     </div>
                     <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Correo Electrónico:</span>
@@ -133,8 +182,28 @@
                         <field name="telefono"/>
                     </div>
                     <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Dirección:</span>
+                        <field name="direccion"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Fecha de Nacimiento:</span>
+                        <field name="fecha_nacimiento" widget="date"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Comentarios:</span>
+                        <field name="comentarios"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Vehículo Preferido:</span>
                         <field name="vehiculo_preferido"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Tipo Cliente:</span>
+                        <field name="tipo_cliente" widget="selection"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Historial Compras:</span>
+                        <field name="historial_compras"/>
                     </div>
                 </sheet>
             </form>
@@ -147,10 +216,14 @@
         <field name="model">concesionario.cliente</field>
         <field name="arch" type="xml">
             <tree string="Clientes">
+                <field name="dni"/>
                 <field name="nombre"/>
+                <field name="apellidos"/>
                 <field name="correo_electronico"/>
                 <field name="telefono"/>
-                <field name="vehiculo_preferido"/>
+                <field name="direccion"/>
+                <field name="fecha_nacimiento"/>
+                <field name="tipo_cliente"/>
             </tree>
         </field>
     </record>
@@ -178,6 +251,14 @@
                         <span style="font-weight: bold;">Precio:</span>
                         <field name="precio" widget="monetary"/>
                     </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Método de Pago:</span>
+                        <field name="metodo_pago" widget="selection"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Fecha de Entrega:</span>
+                        <field name="fecha_entrega" widget="date"/>
+                    </div>
                 </sheet>
             </form>
         </field>
@@ -193,6 +274,8 @@
                 <field name="vehiculo_id"/>
                 <field name="fecha_venta"/>
                 <field name="precio" widget="monetary"/>
+                <field name="metodo_pago"/>
+                <field name="fecha_entrega"/>
             </tree>
         </field>
     </record>

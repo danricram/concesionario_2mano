@@ -8,3 +8,9 @@ class Venta(models.Model):
     vehiculo_id = fields.Many2one("concesionario.vehiculo", string="Vehículo", required=True)
     fecha_venta = fields.Date(string="Fecha de Venta", default=fields.Date.today)
     precio = fields.Float(string="Precio de Venta", related="vehiculo_id.precio")
+    metodo_pago = fields.Selection([
+        ("contado", "Pago al Contado"),
+        ("financiado", "Financiado"),
+        ("leasing", "Leasing")
+    ], string="Método de Pago")
+    fecha_entrega = fields.Date(string="Fecha de Entrega")
