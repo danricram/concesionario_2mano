@@ -4,6 +4,7 @@ class Vehiculo(models.Model):
     _name = "concesionario.vehiculo"
     _description = "Vehículo"
 
+    cantidad = fields.Integer(string="Cantidad")
     matricula = fields.Char(string="Matrícula", unique=True)
     marca = fields.Char(string="Marca", required=True)
     modelo = fields.Char(string="Modelo", required=True)

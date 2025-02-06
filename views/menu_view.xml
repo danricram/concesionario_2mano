@@ -16,6 +16,13 @@
         <field name="view_mode">tree,form,search</field>
     </record>
 
+    <!-- Acción para Proveedores -->
+    <record id="action_concesionario_proveedor" model="ir.actions.act_window">
+        <field name="name">Gestión de Proveedores</field>
+        <field name="res_model">concesionario.proveedor</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
     <!-- Acciones para las ventas -->
     <record id="action_concesionario_venta" model="ir.actions.act_window">
         <field name="name">Gestión de Ventas</field>
@@ -23,14 +30,47 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <!-- Acción para Compras -->
+    <record id="action_concesionario_compra" model="ir.actions.act_window">
+        <field name="name">Gestión de Compras</field>
+        <field name="res_model">concesionario.compra</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+
     <!-- Submenú de vehículos -->
-    <menuitem id="submenu_concesionario_vehiculo" name="Gestión de Vehículos" parent="menu_concesionario_app" sequence="20" action="action_concesionario_vehiculo"/>
+    <menuitem   id="submenu_concesionario_vehiculo" 
+                name="Gestión de Vehículos" 
+                parent="menu_concesionario_app" 
+                sequence="20" 
+                action="action_concesionario_vehiculo"/>
 
     <!-- Submenú de clientes -->
-    <menuitem id="submenu_concesionario_cliente" name="Gestión de Clientes" parent="menu_concesionario_app" sequence="30" action="action_concesionario_cliente"/>
+    <menuitem   id="submenu_concesionario_cliente" 
+                name="Gestión de Clientes" 
+                parent="menu_concesionario_app" 
+                sequence="30" 
+                action="action_concesionario_cliente"/>
 
     <!-- Submenú de ventas -->
-    <menuitem id="submenu_concesionario_venta" name="Gestión de Ventas" parent="menu_concesionario_app" sequence="40" action="action_concesionario_venta"/>
+    <menuitem   id="submenu_concesionario_venta" 
+                name="Gestión de Ventas" 
+                parent="menu_concesionario_app" 
+                sequence="40" 
+                action="action_concesionario_venta"/>
+
+    <!-- Submenú de Proveedores -->
+    <menuitem   id="submenu_concesionario_proveedor"
+                name="Gestión de Proveedores"
+                parent="menu_concesionario_app"
+                sequence="50"
+                action="action_concesionario_proveedor"/>
+
+    <!-- Submenú de Compras -->
+    <menuitem   id="submenu_concesionario_compra"
+                name="Gestión de Compras"
+                parent="menu_concesionario_app"
+                sequence="60"
+                action="action_concesionario_compra"/>
 
     <!-- Vista de formulario para vehículos -->
     <record id="view_concesionario_vehiculo_form" model="ir.ui.view">
@@ -39,6 +79,10 @@
         <field name="arch" type="xml">
             <form string="Vehículo">
                 <sheet>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Cantidad:</span>
+                        <field name="cantidad"/>
+                    </div>
                     <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Matrícula:</span>
                         <field name="matricula"/>
@@ -89,7 +133,8 @@
                     </div>
                     <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Imagen:</span>
-                        <field name="imagen" widget="image"/>
+                        <field name="imagen" widget="image"
+                        style="max-width: 150px; max-height: 150px;"/>
                     </div>
                 </sheet>
             </form>
@@ -102,19 +147,54 @@
         <field name="model">concesionario.vehiculo</field>
         <field name="arch" type="xml">
             <tree string="Vehículos">
-                <field name="matricula"/>
-                <field name="marca"/>
-                <field name="modelo"/>
-                <field name="color"/>
-                <field name="año"/>
-                <field name="kilometraje"/>
-                <field name="potencia_cv"/>
-                <field name="precio" widget="monetary"/>
-                <field name="estado"/>
-                <field name="tipo_combustible"/>
-                <field name="transmision"/>
+                <field name="cantidad" width="5%"/>
+                <field name="matricula" width="10%"/>
+                <field name="marca" width="10%"/>
+                <field name="modelo" width="10%"/>
+                <field name="color" width="5%"/>
+                <field name="año" width="5%"/>
+                <field name="kilometraje" width="10%"/>
+                <field name="potencia_cv" width="5%"/>
+                <field name="precio" widget="monetary" width="10%"/>
+                <field name="estado" width="10%"/>
+                <field name="tipo_combustible" width="10%"/>
+                <field name="transmision" width="10%"/>
                 <field name="imagen" widget="image"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="view_vehiculo_kanban" model="ir.ui.view">
+        <field name="name">concesionario.vehiculo.kanban</field>
+        <field name="model">concesionario.vehiculo</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_view o_kanban_small_column">
+                <field name="imagen"/>
+                <field name="marca"/>
+                <field name="modelo"/>
+                <field name="estado"/>
+                <field name="precio"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card">
+                            <div class="oe_kanban_global_click">
+                                <div class="text-center">
+                                    <div class="o_kanban_image">
+                                        <field name="imagen" widget="image" class="img-fluid"/>
+                                    </div> <!-- Aquí cerramos correctamente el div -->
+                                    <div class="oe_kanban_details">
+                                        <strong><t t-esc="record.marca.value"/> <t t-esc="record.modelo.value"/></strong>
+                                        <br/>
+                                        <span class="oe_kanban_content">Estado: <t t-esc="record.estado.value"/></span>
+                                        <br/>
+                                        <span class="oe_kanban_content">Precio: <t t-esc="record.precio.value"/> €</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
 
@@ -279,4 +359,127 @@
             </tree>
         </field>
     </record>
+
+    <record id="view_concesionario_proveedor_form" model="ir.ui.view">
+        <field name="name">concesionario.proveedor.form</field>
+        <field name="model">concesionario.proveedor</field>
+        <field name="arch" type="xml">
+            <form string="Proveedor">
+                <sheet>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">CIF/NIF:</span>
+                        <field name="cif"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Nombre:</span>
+                        <field name="nombre"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Persona de Contacto:</span>
+                        <field name="contacto"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Teléfono:</span>
+                        <field name="telefono"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Correo Electrónico:</span>
+                        <field name="correo_electronico"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Dirección:</span>
+                        <field name="direccion"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Tipo de Proveedor:</span>
+                        <field name="tipo_proveedor" widget="selection"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Vehículos Suministrados:</span>
+                        <field name="productos_suministrados" widget="many2many_tags"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Historial de Compras:</span>
+                        <field name="historial_compras" widget="one2many"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_concesionario_proveedor_tree" model="ir.ui.view">
+        <field name="name">concesionario.proveedor.tree</field>
+        <field name="model">concesionario.proveedor</field>
+        <field name="arch" type="xml">
+            <tree string="Proveedores">
+                <field name="cif"/>
+                <field name="nombre"/>
+                <field name="correo_electronico"/>
+                <field name="telefono"/>
+                <field name="direccion"/>
+                <field name="tipo_proveedor"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_concesionario_compra_form" model="ir.ui.view">
+        <field name="name">concesionario.compra.form</field>
+        <field name="model">concesionario.compra</field>
+        <field name="arch" type="xml">
+            <form string="Compra">
+                <sheet>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Proveedor:</span>
+                        <field name="proveedor_id"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Fecha de Compra:</span>
+                        <field name="fecha_compra"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Vehículos Comprados:</span>
+                        <field name="vehiculos_comprados" widget="many2many_tags"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Cantidad:</span>
+                        <field name="cantidad"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Método de Pago:</span>
+                        <field name="metodo_pago" widget="selection"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Precio Total:</span>
+                        <field name="precio_total" widget="monetary"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Notas:</span>
+                        <field name="notas" widget="text"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_concesionario_compra_tree" model="ir.ui.view">
+        <field name="name">concesionario.compra.tree</field>
+        <field name="model">concesionario.compra</field>
+        <field name="arch" type="xml">
+            <tree string="Compras">
+                <field name="fecha_compra"/>
+                <field name="proveedor_id"/>
+                <field name="vehiculo_id"/>
+                <field name="cantidad"/>
+                <field name="precio_unitario"/>
+                <field name="precio_total"/>
+                <field name="estado"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+
 </odoo>
+

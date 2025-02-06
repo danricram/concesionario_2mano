@@ -1,5 +1,5 @@
 {
-    "name": "Concesionario",
+    "name": "Concesionario de Segunda Mano",
     "version": "1.0.0",
     "summary": "Gestión de vehículos, clientes y ventas para concesionarios.",
     "author": "Daniel Rico Ramírez",
