@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "summary": "Gestión de vehículos, clientes y ventas para concesionarios.",
     "author": "Daniel Rico Ramírez",
-    "website": "http://www.dadesapp.com",
+    "website": "https://github.com/danricram/concesionario_2mano.git",
     "license": "AGPL-3",
     "category": "Sales",
     "depends": ["base", "sale", "stock"],  # Dependencias de Odoo

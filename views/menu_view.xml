@@ -134,7 +134,7 @@
                     <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Imagen:</span>
                         <field name="imagen" widget="image"
-                        style="max-width: 150px; max-height: 150px;"/>
+                        style="max-width: 300px; max-height: 300px;"/>
                     </div>
                 </sheet>
             </form>
@@ -147,19 +147,18 @@
         <field name="model">concesionario.vehiculo</field>
         <field name="arch" type="xml">
             <tree string="Vehículos">
-                <field name="cantidad" width="5%"/>
-                <field name="matricula" width="10%"/>
-                <field name="marca" width="10%"/>
-                <field name="modelo" width="10%"/>
-                <field name="color" width="5%"/>
-                <field name="año" width="5%"/>
-                <field name="kilometraje" width="10%"/>
-                <field name="potencia_cv" width="5%"/>
-                <field name="precio" widget="monetary" width="10%"/>
-                <field name="estado" width="10%"/>
-                <field name="tipo_combustible" width="10%"/>
-                <field name="transmision" width="10%"/>
-                <field name="imagen" widget="image"/>
+                <field name="cantidad"/>
+                <field name="matricula"/>
+                <field name="marca"/>
+                <field name="modelo"/>
+                <field name="color"/>
+                <field name="año"/>
+                <field name="kilometraje"/>
+                <field name="potencia_cv"/>
+                <field name="precio" widget="monetary"/>
+                <field name="estado"/>
+                <field name="tipo_combustible"/>
+                <field name="transmision"/>
             </tree>
         </field>
     </record>
@@ -434,24 +433,20 @@
                         <field name="proveedor_id"/>
                     </div>
                     <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Vehículo:</span>
+                        <field name="vehiculo_id"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Fecha de Compra:</span>
                         <field name="fecha_compra"/>
-                    </div>
-                    <div style="display: flex; flex: 1;">
-                        <span style="font-weight: bold;">Vehículos Comprados:</span>
-                        <field name="vehiculos_comprados" widget="many2many_tags"/>
-                    </div>
-                    <div style="display: flex; flex: 1;">
-                        <span style="font-weight: bold;">Cantidad:</span>
-                        <field name="cantidad"/>
                     </div>
                     <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Método de Pago:</span>
                         <field name="metodo_pago" widget="selection"/>
                     </div>
                     <div style="display: flex; flex: 1;">
-                        <span style="font-weight: bold;">Precio Total:</span>
-                        <field name="precio_total" widget="monetary"/>
+                        <span style="font-weight: bold;">Precio:</span>
+                        <field name="precio" widget="monetary"/>
                     </div>
                     <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Notas:</span>
@@ -467,13 +462,12 @@
         <field name="model">concesionario.compra</field>
         <field name="arch" type="xml">
             <tree string="Compras">
-                <field name="fecha_compra"/>
                 <field name="proveedor_id"/>
                 <field name="vehiculo_id"/>
-                <field name="cantidad"/>
-                <field name="precio_unitario"/>
-                <field name="precio_total"/>
-                <field name="estado"/>
+                <field name="fecha_compra"/>
+                <field name="metodo_pago"/>
+                <field name="precio"/>
+                <field name="notas"/>
             </tree>
         </field>
     </record>
