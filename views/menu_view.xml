@@ -84,10 +84,6 @@
                         <field name="cantidad"/>
                     </div>
                     <div style="display: flex; flex: 1;">
-                        <span style="font-weight: bold;">Matrícula:</span>
-                        <field name="matricula"/>
-                    </div>
-                    <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Marca:</span>
                         <field name="marca"/>
                     </div>
