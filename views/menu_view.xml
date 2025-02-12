@@ -6,7 +6,7 @@
     <record id="action_concesionario_vehiculo" model="ir.actions.act_window">
         <field name="name">Gestión de Vehículos</field>
         <field name="res_model">concesionario.vehiculo</field>
-        <field name="view_mode">tree,form,search,kanban</field>
+        <field name="view_mode">kanban,tree,form,search</field>
     </record>
 
     <!-- Acciones para los clientes -->
@@ -148,7 +148,6 @@
         <field name="arch" type="xml">
             <tree string="Vehículos">
                 <field name="cantidad"/>
-                <field name="matricula"/>
                 <field name="marca"/>
                 <field name="modelo"/>
                 <field name="color"/>
@@ -313,6 +312,23 @@
         <field name="model">concesionario.venta</field>
         <field name="arch" type="xml">
             <form string="Venta">
+                <header>
+
+                    <!-- Botón para confirmar (solo visible en estado 'confirmado') -->
+                    <button name="action_confirmar" type="object" string="Confirmar" class="oe_highlight"
+                        attrs="{'invisible': [('estado', '!=', 'borrador')]}"/>
+
+                    <!-- Botón para entregar (solo visible en estado 'entregado') -->
+                    <button name="action_entregar" type="object" string="Entregado" class="oe_highlight"
+                        attrs="{'invisible': [('estado', '!=', 'confirmado')]}"/>
+
+                    <!-- Botón para cancelar (visible en los estados 'borrador', 'confirmado', 'entregado') -->
+                    <button name="action_cancelar" type="object" string="Cancelar" class="oe_highlight"
+                        attrs="{'invisible': [('estado', 'not in', ['borrador', 'confirmado', 'entregado'])]}"/>
+                </header>
+
+                <!-- Barra de estado con los estados visibles que tienes definidos -->
+                <field name="estado" widget="statusbar" statusbar_visible="borrador,confirmado,entregado,cancelado"/>
                 <sheet>
                     <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Cliente:</span>
@@ -327,8 +343,16 @@
                         <field name="fecha_venta" widget="date"/>
                     </div>
                     <div style="display: flex; flex: 1;">
-                        <span style="font-weight: bold;">Precio:</span>
-                        <field name="precio" widget="monetary"/>
+                        <span style="font-weight: bold;">Cantidad:</span>
+                        <field name="cantidad"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Precio Unitario:</span>
+                        <field name="precio_unitario" widget="monetary"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Precio Total:</span>
+                        <field name="precio_total" widget="monetary"/>
                     </div>
                     <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Método de Pago:</span>
@@ -352,8 +376,9 @@
                 <field name="cliente_id"/>
                 <field name="vehiculo_id"/>
                 <field name="fecha_venta"/>
-                <field name="precio" widget="monetary"/>
+                <field name="precio_total" widget="monetary"/>
                 <field name="metodo_pago"/>
+                <field name="estado"/>
                 <field name="fecha_entrega"/>
             </tree>
         </field>
@@ -427,6 +452,21 @@
         <field name="model">concesionario.compra</field>
         <field name="arch" type="xml">
             <form string="Compra">
+                <header>
+                    <button name="action_reservar" type="object" string="Reservar" class="oe_highlight"
+                        states="borrador"
+                        attrs="{'invisible': [('estado', '!=', 'borrador')]}"/>
+                    <button name="action_confirmar" type="object" string="Confirmar" class="oe_highlight"
+                        states="reservado"
+                        attrs="{'invisible': [('estado', '!=', 'reservado')]}"/>
+                    <button name="action_recibir" type="object" string="Recibir" class="oe_highlight"
+                        states="confirmado"
+                        attrs="{'invisible': [('estado', '!=', 'confirmado')]}"/>
+                    <button name="action_cancelar" type="object" string="Cancelar" class="oe_highlight"
+                        states="borrador,reservado,confirmado"
+                        attrs="{'invisible': [('estado', 'not in', ['borrador', 'reservado', 'confirmado'])]}"/>
+                    <field name="estado" widget="statusbar" statusbar_visible="borrador,reservado,confirmado,recibido,cancelado"/>
+                </header>
                 <sheet>
                     <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Proveedor:</span>
@@ -445,8 +485,16 @@
                         <field name="metodo_pago" widget="selection"/>
                     </div>
                     <div style="display: flex; flex: 1;">
-                        <span style="font-weight: bold;">Precio:</span>
-                        <field name="precio" widget="monetary"/>
+                        <span style="font-weight: bold;">Cantidad:</span>
+                        <field name="cantidad"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Precio Unitario:</span>
+                        <field name="precio_unitario" widget="monetary"/>
+                    </div>
+                    <div style="display: flex; flex: 1;">
+                        <span style="font-weight: bold;">Precio Total:</span>
+                        <field name="precio_total" widget="monetary"/>
                     </div>
                     <div style="display: flex; flex: 1;">
                         <span style="font-weight: bold;">Notas:</span>
@@ -465,8 +513,10 @@
                 <field name="proveedor_id"/>
                 <field name="vehiculo_id"/>
                 <field name="fecha_compra"/>
+                <field name="cantidad"/>
+                <field name="precio_total"/>
                 <field name="metodo_pago"/>
-                <field name="precio"/>
+                <field name="estado"/>
                 <field name="notas"/>
             </tree>
         </field>
