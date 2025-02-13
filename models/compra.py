@@ -50,7 +50,10 @@ class Compra(models.Model):
         return {'type': 'ir.actions.client', 'tag': 'reload'}
 
     def action_cancelar(self):
-        """ Cambia el estado a 'Cancelado' y recarga la vista. """
+        """Cambia el estado a 'Cancelado', devuelve el stock y recarga la vista."""
+        if self.estado == 'confirmado':  # Solo si la compra estaba confirmada
+            self.vehiculo_id.cantidad -= self.cantidad  # Revertir la compra (quitar del stock)
+
         self.write({'estado': 'cancelado'})
         return {'type': 'ir.actions.client', 'tag': 'reload'}
 

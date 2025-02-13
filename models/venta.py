@@ -58,7 +58,8 @@ class Venta(models.Model):
         for venta in self:
             if venta.estado == 'confirmado':  # Solo si ya estaba confirmado
                 # Se devuelve el stock
-                venta.vehiculo_id.cantidad += venta.cantidad
+#                venta.vehiculo_id.cantidad += venta.cantidad
+                venta.vehiculo_id.cantidad += self.cantidad  # Aumentar el stock cuando se recibe
                 venta.vehiculo_id.estado = 'disponible'  # Lo marcamos como disponible
 
             # Cambiamos el estado a cancelado
@@ -75,12 +76,5 @@ class Venta(models.Model):
             raise ValidationError("Lo sentimos, ya no nos quedan unidades de este vehículo.")
 
         venta = super(Venta, self).create(vals)
-        
-#        if vehiculo.cantidad > 0:
-#            vehiculo.cantidad -= 1  # Restamos 1 a la cantidad de vehículos
-
-        # Opcional: Cambiar el estado del vehículo si ya no hay unidades disponibles
-#        if vehiculo.cantidad == 0:
-#            vehiculo.estado = 'vendido'
         
         return venta

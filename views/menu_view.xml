@@ -318,9 +318,9 @@
                     <button name="action_entregar" type="object" string="Entregado" class="oe_highlight"
                         attrs="{'invisible': [('estado', '!=', 'confirmado')]}"/>
 
-                    <!-- Botón para cancelar (visible en los estados 'borrador', 'confirmado', 'entregado') -->
+                    <!-- Botón para cancelar (visible en los estados 'borrador', 'confirmado') -->
                     <button name="action_cancelar" type="object" string="Cancelar" class="oe_highlight"
-                        attrs="{'invisible': [('estado', 'not in', ['borrador', 'confirmado', 'entregado'])]}"/>
+                        attrs="{'invisible': [('estado', 'not in', ['borrador', 'confirmado'])]}"/>
                 </header>
 
                 <!-- Barra de estado con los estados visibles que tienes definidos -->
