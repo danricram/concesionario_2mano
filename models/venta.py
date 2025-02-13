@@ -59,7 +59,7 @@ class Venta(models.Model):
             if venta.estado == 'confirmado':  # Solo si ya estaba confirmado
                 # Se devuelve el stock
 #                venta.vehiculo_id.cantidad += venta.cantidad
-                venta.vehiculo_id.cantidad += self.cantidad  # Aumentar el stock cuando se recibe
+                venta.vehiculo_id.cantidad += venta.cantidad  # Aumentar el stock cuando se recibe
                 venta.vehiculo_id.estado = 'disponible'  # Lo marcamos como disponible
 
             # Cambiamos el estado a cancelado
